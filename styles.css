@@ -1,4 +1,27 @@
 body {
     background-color: black;
     font-family: monospace;
+    text-align: center;
+    color: white;
+}
+
+h1 {
+    padding: 0.5em;
+}
+
+.container {
+    font-size: 5em;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.selection {
+    padding: 50px 20px 0;
+}
+
+#result {
+    margin: 50px;
+    padding: 20px;
+    font-size: 3em;
 }

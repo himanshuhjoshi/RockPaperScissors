@@ -1,3 +1,8 @@
+let playerSelection = "";
+let computerSelection = getComputerChoice();
+let playerScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
     const MIN = 1;
     const MAX = 3;
@@ -14,97 +19,69 @@ function getComputerChoice() {
     }
 }
 
-function getPlayerChoice() {
-    const playerChoice = prompt(`Can only input below 3 values,\nRock, Paper,Scissor`);
-    switch(playerChoice){
-        case "Rock":
-        case "rock":
-            return "Rock";
-        case "Paper":
-        case "paper":
-            return "Paper";
-        case "Scissor":
-        case "scissor":
-            return "Scissor";
-        default:
-            return alert("Enter valid input");
-    }
-}
+const playerChoice = document.querySelectorAll(".selection");
+const result = document.querySelector("#result");
 
-function playGame() {
-    let playerScore = 0;
-    let computerScore = 0;
-
-    function playRound(playerSelection, computerSelection) {
-        if(playerSelection == "rock"){
-            if(computerSelection == "paper"){
-                ++computerScore;
-                console.log("You lose! Paper Beats Rock")
-            }
-            else if(computerSelection == "rock"){
-                console.log("Ooooo! You Both Choose Rock");
-            }
-            else {
-                ++playerScore;
-                console.log("You Win! Rock Beats Scissor")
-            }
+playerChoice.forEach((choice) => {
+    choice.addEventListener("click", () => {
+        playerSelection = choice.id;
+        playGame(playerSelection, computerSelection);
+        console.log(playerScore, computerScore);
+        if(playerScore == 5){
+            result.textContent = "Player Won! \nResetting the Game";
+            resetGame();
         }
-        else if(playerSelection == "paper"){
-            if(computerSelection == "paper"){
-                console.log("Ooooo! You Both Choose Paper")
-            }
-            else if(computerSelection == "rock"){
-                ++playerScore;
-                console.log("You Win! Paper Beats Rock");
-            }
-            else {
-                ++computerScore;
-                console.log("You Lose! Scissor Beats Paper")
-            }
+        else if(computerScore == 5){
+            result.textContent = "Computer Won! \nResetting the Game";
+            resetGame();
+        }
+    });
+});
+
+function playGame(playerSelection, computerSelection) {
+    console.log(playerSelection, computerSelection);
+    if(playerSelection == "rock"){
+        if(computerSelection == "paper"){
+            ++computerScore;
+            console.log("You lose! Paper Beats Rock")
+        }
+        else if(computerSelection == "rock"){
+            console.log("Ooooo! You Both Choose Rock");
         }
         else {
-            if(computerSelection == "paper"){
-                ++playerScore;
-                console.log("You Win! Scissor Beats Paper")
-            }
-            else if(computerSelection == "rock"){
-                ++computerScore;
-                console.log("You Lose! Rock Beats Scissor");
-            }
-            else {
-                console.log("Ooooo! You Both Choose Scissor")
-            }
+            ++playerScore;
+            console.log("You Win! Rock Beats Scissor")
         }
     }
-
-    let playerSelection = getPlayerChoice().toLowerCase();
-    let computerSelection = getComputerChoice();
-    playRound(playerSelection, computerSelection);
-
-    playerSelection = getPlayerChoice().toLowerCase();
-    computerSelection = getComputerChoice();
-    playRound(playerSelection, computerSelection);
-
-    playerSelection = getPlayerChoice().toLowerCase();
-    computerSelection = getComputerChoice();
-    playRound(playerSelection, computerSelection);
-
-    playerSelection = getPlayerChoice().toLowerCase();
-    computerSelection = getComputerChoice();
-    playRound(playerSelection, computerSelection);
-
-    playerSelection = getPlayerChoice().toLowerCase();
-    computerSelection = getComputerChoice();
-    playRound(playerSelection, computerSelection);
-
-    console.log(playerScore, computerScore);
-
-    if(playerScore > computerScore)
-        return "YOU WIN!!!";
-    else if (playerScore == computerScore)
-        return "IT'S A DRAW! TRY AGAIN"
-    else
-        return "YOU LOSE! TRY AGAIN";
+    else if(playerSelection == "paper"){
+        if(computerSelection == "paper"){
+            console.log("Ooooo! You Both Choose Paper")
+        }
+        else if(computerSelection == "rock"){
+            ++playerScore;
+            console.log("You Win! Paper Beats Rock");
+        }
+        else {
+            ++computerScore;
+            console.log("You Lose! Scissor Beats Paper")
+        }
+    }
+    else {
+        if(computerSelection == "paper"){
+            ++playerScore;
+            console.log("You Win! Scissor Beats Paper")
+        }
+        else if(computerSelection == "rock"){
+            ++computerScore;
+            console.log("You Lose! Rock Beats Scissor");
+        }
+        else {
+            console.log("Ooooo! You Both Choose Scissor")
+        }
+    }
 }
 
-console.log(playGame());
+function resetGame() {
+    playerScore = 0;
+    computerScore = 0;
+}
